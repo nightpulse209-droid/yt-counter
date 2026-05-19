@@ -1,9 +1,59 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <title>YT Counter</title>
+  <title>YT Live Counter</title>
+  <style>
+    body{
+      margin:0;
+      background:black;
+      color:white;
+      display:flex;
+      justify-content:center;
+      align-items:center;
+      height:100vh;
+      flex-direction:column;
+      font-family:Arial;
+    }
+
+    h1{
+      font-size:60px;
+      margin:0;
+    }
+
+    p{
+      font-size:30px;
+      color:red;
+    }
+  </style>
 </head>
-<body style="background:black;color:white;text-align:center;padding-top:100px;font-family:Arial;">
-  <h1>YT Live Counter Working 🚀</h1>
+<body>
+
+<h1 id="subs">Loading...</h1>
+<p>Subscribers</p>
+
+<script>
+
+const API_KEY = "YAHAN_API_KEY";
+const CHANNEL_ID = "YAHAN_CHANNEL_ID";
+
+async function getSubs() {
+
+const res = await fetch(
+`https://www.googleapis.com/youtube/v3/channels?part=statistics&id=${CHANNEL_ID}&key=${API_KEY}`
+);
+
+const data = await res.json();
+
+document.getElementById("subs").innerText =
+data.items[0].statistics.subscriberCount;
+
+}
+
+getSubs();
+
+setInterval(getSubs, 5000);
+
+</script>
+
 </body>
 </html>
