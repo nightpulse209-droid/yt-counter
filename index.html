@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>YT Counter</title>
+
+<style>
+
+body{
+background:black;
+color:white;
+font-family:Arial;
+display:flex;
+justify-content:center;
+align-items:center;
+height:100vh;
+flex-direction:column;
+}
+
+#subs{
+font-size:80px;
+color:red;
+}
+
+</style>
+
+</head>
+
+<body>
+
+<h1 id="subs">Loading...</h1>
+<p>Subscribers</p>
+
+<script>
+
+const API_KEY = "AIzaSyBOwjHaRjViHyWiQHygja8mqhFrbvhNX0M";
+
+const CHANNEL_ID = "UCGlQ_E7flzgNmGKIwsNF9mg";
+
+async function getSubs(){
+
+const res = await fetch(
+`https://www.googleapis.com/youtube/v3/channels?part=statistics&id=${CHANNEL_ID}&key=${API_KEY}`
+);
+
+const data = await res.json();
+
+document.getElementById("subs").innerText =
+data.items[0].statistics.subscriberCount;
+
+}
+
+getSubs();
+
+</script>
+
+</body>
+</html>
